@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TaskBot AI</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="app">
+    <aside class="chat">
+      <header class="chat-header">
+        <h1>TaskBot</h1>
+        <button id="reset-btn" title="Limpar conversa">Reset</button>
+      </header>
+
+      <div class="messages" id="messages">
+        <div class="msg bot">
+          <p>Olá! Sou o TaskBot. Diz-me o que queres fazer — criar uma tarefa, alterar a última, listar ou apagar.</p>
+        </div>
+      </div>
+
+      <form class="composer" id="composer">
+        <input type="text" id="input" placeholder="Envia uma mensagem..." autocomplete="off" required>
+        <button type="submit">Enviar</button>
+      </form>
+    </aside>
+
+    <main class="board">
+      <header class="board-header">
+        <h2>Tarefas</h2>
+        <div class="filters">
+          <select id="filter-priority">
+            <option value="">Todas as prioridades</option>
+            <option value="URGENT">Urgente</option>
+            <option value="HIGH">Alta</option>
+            <option value="MEDIUM">Média</option>
+            <option value="LOW">Baixa</option>
+          </select>
+          <select id="filter-space">
+            <option value="">Todos os espaços</option>
+            <option value="Desenvolvimento">Desenvolvimento</option>
+            <option value="Design">Design</option>
+            <option value="Marketing">Marketing</option>
+          </select>
+        </div>
+      </header>
+
+      <div class="tasks" id="tasks">
+        <p class="empty">Sem tarefas. Pede uma ao bot.</p>
+      </div>
+    </main>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
