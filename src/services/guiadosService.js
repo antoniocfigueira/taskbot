@@ -6,7 +6,7 @@ import { streamChat } from '../../stream_api.js';
 
 // =============== GUIADOS 01 ===============
 
-// ex01 guiados 01
+// ex01-01
 export async function createTaskFromText(text) {
   const prompt = `Transforma o texto numa tarefa JSON. Responde so com o JSON.
 Texto: "${text}"
@@ -14,7 +14,7 @@ Formato: { "title": "...", "description": "...", "priority": "high|medium|low", 
   return JSON.parse(cleanJSON(await generate(prompt)));
 }
 
-// ex02 guiados 01
+// ex02-01
 export async function refineTask(task) {
   const prompt = `Melhora a tarefa abaixo. So JSON.
 ${JSON.stringify(task, null, 2)}
@@ -22,12 +22,12 @@ Formato: { "title": "...", "description": "...", "priority": "high|medium|low", 
   return JSON.parse(cleanJSON(await generate(prompt)));
 }
 
-// ex03 guiados 01
+// ex03-01
 export async function summarizeTask(text) {
   return (await generate(`Resume em uma frase curta (max 20 palavras), so a frase: "${text}"`)).trim();
 }
 
-// ex03 guiados 01
+// ex03-01
 export async function suggestTags(text) {
   return JSON.parse(cleanJSON(await generate(`Sugere 3 a 5 tags em portugues. So um array JSON.
 Tarefa: "${text}"`)));
@@ -35,7 +35,7 @@ Tarefa: "${text}"`)));
 
 // =============== GUIADOS 02 ===============
 
-// ex01 guiados 02
+// ex01-02
 export function createSystemPrompt() {
   return `Es o ClickBot, assistente de produtividade.
 Responde em portugues de Portugal, direto e profissional.
@@ -43,7 +43,7 @@ Quando o utilizador pedir uma tarefa, devolve JSON estruturado.
 Se nao souberes, diz que nao sabes.`;
 }
 
-// ex02 guiados 02
+// ex02-02
 export async function classifyPriority(text) {
   const examples = [
     { role: 'user', parts: [{ text: 'site caiu' }] },
@@ -61,12 +61,12 @@ export async function classifyPriority(text) {
   return r.candidates[0].content.parts[0].text.trim();
 }
 
-// ex03 guiados 02
+// ex03-02
 export async function generateNames(temp) {
   return await generate('Da-me 5 nomes criativos para uma app de gestao de tarefas. Lista numerada.', { temperature: temp });
 }
 
-// ex04 guiados 02
+// ex04-02
 export async function planSprint() {
   return await generate('Organiza um sprint de 5 dias para lancar uma landing page. Para cada dia: objetivo, tarefas, responsavel.');
 }
@@ -89,7 +89,7 @@ export async function sendMessage(message, sessionId = 'default') {
   return reply;
 }
 
-// ex07 guiados 02
+// ex07-02
 export async function summarizeHistory(sessionId = 'default') {
   const s = getSession(sessionId);
   if (s.history.length === 0) return '';
@@ -99,7 +99,7 @@ export async function summarizeHistory(sessionId = 'default') {
   return s.summary;
 }
 
-// ex08 guiados 02
+// ex08-02
 export async function generateTaskBreakdown(taskText) {
   const prompt = `Divide a tarefa em subtarefas. Pensa passo a passo antes de responder.
 Tarefa: "${taskText}"
@@ -134,7 +134,7 @@ export const sentimentSchema = z.object({
   burnout_risk: z.boolean()
 });
 
-// ex01 guiados 03
+// ex01-03
 export async function streamSupportChat(res, userMessage) {
   const full = await streamChat(res, {
     prompt: userMessage,
@@ -147,7 +147,7 @@ export async function streamSupportChat(res, userMessage) {
   }
 }
 
-// ex02 guiados 03
+// ex02-03
 export async function smartTaskParser(text) {
   const prompt = `Extrai informacoes para criar uma tarefa.
 Pedido: "${text}"`;
@@ -155,7 +155,7 @@ Pedido: "${text}"`;
   return smartTaskSchema.parse(r);
 }
 
-// ex03 guiados 03
+// ex03-03
 export async function streamMeetingSummary(res, notes, projectId) {
   const prompt = `Sumariza estas notas com pontos chave, decisoes e proximos passos:\n"""\n${notes}\n"""`;
   const full = await streamChat(res, { prompt });
@@ -166,7 +166,7 @@ export async function streamMeetingSummary(res, notes, projectId) {
   }
 }
 
-// ex04 guiados 03
+// ex04-03
 export async function triageBug(errorText) {
   const triage = bugTriageSchema.parse(await generateJSON(`Classifica este reporte de erro: "${errorText}"`, zodToJsonSchema(bugTriageSchema)));
   let ticketId = null;
@@ -179,14 +179,14 @@ export async function triageBug(errorText) {
   return { ...triage, ticket_id: ticketId };
 }
 
-// ex05 guiados 03
+// ex05-03
 export async function streamWeeklyPlan(res, userInput) {
   const prompt = `Organiza um plano semanal a partir de: "${userInput}"
 No final devolve JSON: { "schedule": [ { "day": "Segunda", "tasks": ["..."] } ] }`;
   await streamChat(res, { prompt });
 }
 
-// ex06 guiados 03
+// ex06-03
 const mockComments = [
   'Outro sprint atrasado, isto nao tem fim.',
   'A reuniao de hoje foi produtiva, gostei da direcao.',

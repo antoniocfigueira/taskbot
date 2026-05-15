@@ -9,14 +9,14 @@ function validateText(req, res) {
   return text.trim();
 }
 
-// ex01 guiados 01
+// ex01-01
 export async function createTask(req, res) {
   const text = validateText(req, res); if (!text) return;
   try { res.status(201).json({ success: true, data: await g.createTaskFromText(text) }); }
   catch (err) { console.error(err); res.status(500).json({ success: false, error: 'Falha' }); }
 }
 
-// ex02 guiados 01
+// ex02-01
 export async function refineTask(req, res) {
   const { task } = req.body;
   if (!task || !task.title) return res.status(400).json({ success: false, error: 'task com title obrigatorio' });
@@ -24,7 +24,7 @@ export async function refineTask(req, res) {
   catch (err) { console.error(err); res.status(500).json({ success: false, error: 'Falha' }); }
 }
 
-// ex03 guiados 01
+// ex03-01
 export async function summarize(req, res) {
   const text = validateText(req, res); if (!text) return;
   try { res.status(200).json({ success: true, data: { summary: await g.summarizeTask(text) } }); }
@@ -37,7 +37,7 @@ export async function suggestTags(req, res) {
   catch (err) { console.error(err); res.status(500).json({ success: false, error: 'Falha' }); }
 }
 
-// ex09 guiados 02
+// ex09-02
 export async function clickbotChat(req, res) {
   const { message, sessionId } = req.body;
   if (!message) return res.status(400).json({ success: false, error: 'message obrigatorio' });
@@ -45,7 +45,7 @@ export async function clickbotChat(req, res) {
   catch (err) { console.error(err); res.status(500).json({ success: false, error: 'Falha' }); }
 }
 
-// ex01 guiados 03
+// ex01-03
 export async function supportChat(req, res) {
   const message = req.query.message || req.body?.message;
   if (!message) return res.status(400).json({ success: false, error: 'message obrigatorio' });
